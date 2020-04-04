@@ -5,14 +5,15 @@ import random
 from string import ascii_letters
 from time import sleep
 
-from subprocess import call
-from platform import system
-cls = 'cls' if system() == 'Windows' else 'clear'
+# from subprocess import call
+# from platform import system
+# cls = 'cls' if system() == 'Windows' else 'clear'
 
 
 class Browser(object):
 
     def __init__(self):
+        self.progresses = {}
         super(Browser, self).__init__()
 
     def createBrowser(self):
@@ -40,8 +41,9 @@ class Browser(object):
                 count_time = 0
                 for _ in range(sleepTime):
                     count_time += 1
-                    call([cls])
-                    print('\033[32m %s/%s \033[0m' % (count_time, sleepTime))
+                    # call([cls])
+                    # print('\033[32m %s/%s \033[0m' % (count_time, sleepTime))
+                    self.progresses[url] = [count_time, sleepTime]
                     sleep(1)
 
             # search for something random
