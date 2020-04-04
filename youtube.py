@@ -21,7 +21,7 @@ class Views(Browser, Tor):
         self.ip = None
         self.alive = True
         self.targets = {}  # {url: visits}
-        # self.progresses = {}
+        self.progresses = {}
         self.recentIPs = Queue(10)
 
         self.min = int(min)
@@ -54,8 +54,8 @@ class Views(Browser, Tor):
         print('  +------ Youtube Views ------+')
         print('  [-] Url: {}{}{}'.format(g, url, n))
         print('  [-] Proxy IP: {}{}{}'.format(b, self.ip, n))
-        print('  [-] Progress: {}[{:<{}}] {:.0f}%{}'.format(
-            b, "=" * int(barLen * percent), barLen, percent * 100, n
+        print('  [-] Progress: {}[{:<{}}]{}s {:.0f}%{}'.format(
+            b, "=" * int(barLen * percent), barLen, done, percent * 100, n
         ))
         print('  [-] Visits: {}{}{}'.format(y, self.targets[url], n))
 

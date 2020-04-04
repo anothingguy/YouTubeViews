@@ -29,11 +29,12 @@ class Browser(object):
 
     def watch(self, url):
         if not self.alive:
-            return
+            return False
 
         try:
             br = self.createBrowser()
-            if not br.open(url, timeout=5.0).read():return
+            if not br.open(url, timeout=5.0).read():
+                return
 
             sleepTime = random.randint(self.min, self.max)
             # [sleep(1) for _ in range(sleepTime) if self.alive] # watching the video
@@ -47,14 +48,20 @@ class Browser(object):
                     sleep(1)
 
             # search for something random
-            br.select_form(id='search-form')
-            br.form['search_query'] = random.choice([_ for _ in ascii_letters])
+            try:
+                # br.select_form(id='search-form')
+                # br.form['search_query'] = random.choice([_ for _ in ascii_letters])
+                if len(br.links()):
+                    br.open(br.links()[0].base_url, timeout=5.0)
+                    sleep(1)
 
-            sleep(0.5)
-            br.submit()
-            br.close()
-            return True
-        except:return
+            except Exception as e:
+                print(e)
+            finally:
+                br.close()
+                return True
+        except Exception:
+            return False
 
     def useragent(self):
         useragents = [
