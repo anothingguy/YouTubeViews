@@ -11,12 +11,12 @@ class Tor(object):
         super(Tor, self).__init__()
 
     def restartTor(self, num=3):
-        shell('service tor restart')
+        shell('sudo service tor restart')
         sleep(1.5)
         self.updateIp(num)
 
     def stopTor(self):
-        shell('service tor stop')
+        shell('sudo service tor stop')
 
     def installTor(self):
         self.connection()
@@ -54,7 +54,7 @@ class Tor(object):
                     else:
                         if reset_counts:
                             reset_counts -= 1
-                            shell('service network-manager restart')
+                            shell('sudo service network-manager restart')
                         sleep(1)
                 if not ip:self.restartTor(recur-1)
             if all([not ip, not recur]):self.connection()
